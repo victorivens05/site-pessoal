@@ -16,6 +16,6 @@ export class AppController {
 
   @Get('/api/:id')
   getHelloId (@Param('id') id) {
-    return { hello: 'world', 'id': id, version: '1.0' }
+    return { hello: 'world', 'id': id, version: '1.1' }
   }
 }
