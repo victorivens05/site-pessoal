@@ -9,21 +9,21 @@ services:
       - app-network
     # volumes:
     #   - certs-serpro:/var/certs-serpro
-  # webserver-pessoal:
-  #   image: nginx:mainline-alpine
-  #   container_name: webserver-pessoal
-  #   restart: unless-stopped
-  #   ports:
-  #     - "80:80"
-  #   volumes:
-  #     - web-root:/var/www/html
-  #     - ./packages/webserver/nginx-conf:/etc/nginx/conf.d
-  #     - certbot-etc:/etc/letsencrypt
-  #     - certbot-var:/var/lib/letsencrypt
-  #   depends_on:
-  #     - nodejs-pessoal
-  #   networks:
-  #     - app-network
+  webserver-pessoal:
+    image: nginx:mainline-alpine
+    container_name: webserver-pessoal
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    volumes:
+      - web-root:/var/www/html
+      - ${WEBAPP_STORAGE_HOME}/site-pessoal/packages/webserver/nginx-conf:/etc/nginx/conf.d
+      - certbot-etc:/etc/letsencrypt
+      - certbot-var:/var/lib/letsencrypt
+    depends_on:
+      - nodejs-pessoal
+    networks:
+      - app-network
 
   # certbot:
   #   image: certbot/certbot
@@ -36,16 +36,16 @@ services:
   #     - webserver
   #   command: certonly --webroot --webroot-path=/var/www/html --email victor@newdriver.com.br --agree-tos --no-eff-email --staging -d seplac.net  -d www.seplac.net
 
-# volumes:
-#   certbot-etc:
-#   certbot-var:
-#   # certs-serpro:
-#   web-root:
-#    driver: local
-#    driver_opts:
-#      type: none
-#      device: /home/victor/Projetos/PESSOAL/site-pessoal/packages/painel/build
-#      o: bind
+volumes:
+  certbot-etc:
+  certbot-var:
+  # certs-serpro:
+  web-root:
+   driver: local
+   driver_opts:
+     type: none
+     device: {WEBAPP_STORAGE_HOME}/site-pessoal/packages/painel/build
+     o: bind
 networks:
   app-network:
     driver: bridge
