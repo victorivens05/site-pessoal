@@ -8,7 +8,9 @@ function App() {
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
-          Site do vitão
+          Site do vitão<br />
+          url: {process.env.REACT_APP_API_URL}<br />
+          host: {process.env.REACT_APP_API_HOST}<br />
         </p>
       </header>
     </div>
